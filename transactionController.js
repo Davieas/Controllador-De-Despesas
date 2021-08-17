@@ -90,7 +90,6 @@ const handleFormSubmit = (event) => {
 
   newTransactionToDom(transactionName, transactionAmount);
   init();
-  updateLocalStorage();
   cleanInputs();
 };
 
