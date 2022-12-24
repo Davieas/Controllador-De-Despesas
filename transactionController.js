@@ -1,4 +1,5 @@
 const TransactionUL = document.querySelector("#transactions");
+const amount = document.querySelector("#amount");
 const incomeDisplay = document.querySelector("#money-plus");
 const expenseDisplay = document.querySelector("#money-minus");
 const balanceDisplay = document.querySelector("#balance");
@@ -6,11 +7,13 @@ const form = document.querySelector("#form");
 const inputTransactionName = document.querySelector("#text");
 const inputTransactionAmount = document.querySelector("#amount");
 
-const addTransactionIntoDOM = (transaction) => {
+
+function addTransactionIntoDOM(transaction){
   const operator = transaction.amount < 0 ? "-" : "+";
   const CSSClass = transaction.amount < 0 ? "minus" : "plus";
   const AmountWithoutOperator = Math.abs(transaction.amount);
   const li = document.createElement("li");
+
 
   li.classList.add(CSSClass);
   li.innerHTML = `
@@ -21,8 +24,11 @@ const addTransactionIntoDOM = (transaction) => {
 
     `;
 
-  TransactionUL.append(li);
-};
+  transaction.append(li);
+
+    return forEach();
+ 
+}
 
 const getExpense = (transactionsAmounts) =>
   Math.abs(
@@ -43,7 +49,7 @@ const getTotal = (transactionsAmounts) =>
     .toFixed(2);
 
 const updateBalanceValues = () => {
-  const transactionsAmounts = transactions.map(
+  const transactionsAmounts = TransactionUL.map(
     (transaction) => transaction.amount
   );
 
@@ -52,19 +58,18 @@ const updateBalanceValues = () => {
   expenseDisplay.textContent = `R$ ${getExpense(transactionsAmounts)}`;
 };
 
-const init = () => {
+function init() {
   TransactionUL.innerHTML = "";
-  transactions.forEach(addTransactionIntoDOM);
+  transaction.forEach(addTransactionIntoDOM);
   updateBalanceValues();
 };
 
-init();
 
 
 const generateId = () => Math.round(Math.random() * 1000);
 
 const newTransactionToDom = (transactionName, transactionAmount) => {
-  transactions.push({
+  TransactionUL.push({
     id: generateId(),
     name: transactionName,
     amount: Number(transactionAmount),
@@ -86,11 +91,12 @@ const handleFormSubmit = (event) => {
   if (isSomeInputEmpty) {
     alert("Preencha os Campos Antes de Enviar!!");
     return;
-  }
+  }else{
 
   newTransactionToDom(transactionName, transactionAmount);
   init();
   cleanInputs();
+  }
 };
 
 form.addEventListener("submit", handleFormSubmit);

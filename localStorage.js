@@ -1,3 +1,5 @@
+import transactions from "./transactionController";
+
 const localStorageTransactions = JSON.parse(
     localStorage.getItem("transactions")
   );
